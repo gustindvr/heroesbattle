@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react';
+
+import Auth from "./components/Form/Auth";
+import Home from './components/Home/Home';
 
 function App() {
+  
+  const [error, setError] = useState(false);
+  const [errorDiff, setErrorDiff] = useState(false);
+
+  const [tokenId, setTokenId] = useState(
+    window.localStorage.getItem('id')
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <h1 className='text-center mt-5'>Super Heroes</h1>
+    {tokenId ? 
+      <Home 
+        tokenId={tokenId} 
+        error={error}
+        setError={setError}
+        errorDiff={errorDiff} 
+        setErrorDiff={setErrorDiff}
+      /> : 
+      <Auth 
+        error={error}
+        setError={setError}
+        errorDiff={errorDiff} 
+        setErrorDiff={setErrorDiff}
+      />
+    }
+    </>
   );
 }
 
