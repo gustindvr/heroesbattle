@@ -6,10 +6,13 @@ import {
   Link
 } from "react-router-dom";
 
+import {Button} from 'react-bootstrap';
+import {Navbar} from '../Layout/Navbar/Navbar';
+
 import SelectHero from '../SelectHero/SelectHero';
 import Team from '../Team/Team';
 
-const Home = () => {
+const Home = ({setTokenId}) => {
 
   //States
   const [team, setTeam] = useState([]);
@@ -36,9 +39,19 @@ const Home = () => {
     setCombat(combat + Number(hero.powerstats.combat) || 0)
   }
 
-  const dividir = (skill, team )=> {
-    console.log(skill / team.length);
+    
+  const deleteHero = (id, hero) => {
+    const newTeam = team.filter(hero => hero.id !== id);
+    setTeam(newTeam)
+    setIntelligence( intelligence - Number(hero.powerstats.intelligence) || 0)
+    setStrength(strength - Number(hero.powerstats.strength)|| 0)
+    setSpeed(speed - Number(hero.powerstats.speed) || 0)
+    setDurability(durability - Number(hero.powerstats.durability) || 0)
+    setPower(power - Number(hero.powerstats.power) || 0)
+    setCombat(combat - Number(hero.powerstats.combat) || 0)
   }
+
+
 
   useEffect(() => {
   
@@ -50,37 +63,42 @@ const Home = () => {
       power: power,
       combat: combat
     })
+
   }, [intelligence, strength, speed, durability, power, combat])
 
-  console.log(team.sort())
+  const cerrarSesion = () => {
+    setTokenId(window.localStorage.removeItem('id'))
+  }
 
   return ( 
     <Router>
-      <Link to='/home'>
-        Equipo
-      </Link>
-      <Link to='/SearchHero'>
-        Buscar
-      </Link>
+      <Navbar>
+        <Link to='/home'>
+          <Button className='btn btn-success p-2 mr-5 text-center'>Equipo</Button> 
+        </Link>
+        <Link to='/SearchHero'>
+        <Button className='btn btn-success p-2 mr-5 text-center'>Buscar</Button>
+        </Link>
+        <Link to='/login'>
+        <Button className='btn btn-success p-2 text-center' onClick={cerrarSesion}>Cerrar Sesion</Button>
+        </Link>
+      </Navbar>
       <Switch>
-        <Route path='/SearchHero'>
+        <Route path='/SearchHero' exact>
         <SelectHero 
           constructorTeam={constructorTeam}
-          setIntelligence={setIntelligence}
-          setStrength={setStrength}
-          setSpeed={setSpeed}
-          setDurability={setDurability}
-          setPower={setPower}
-          setPowerStats={setPowerStats}
+          team={team}
         />
         </Route>
-        <Route path='/home'>
+        <Route path='/home' exact>
           <Team 
             team={team}
-            dividir={dividir}
             powerStats={powerStats}
+            setTeam={setTeam}
+            deleteHero={deleteHero}
             />
         </Route>
+
       </Switch>
     </Router>
    );

@@ -12,9 +12,11 @@ function App() {
     window.localStorage.getItem('id')
   )
 
+  
+
   return (
     <>
-    <h1 className='text-center mt-5'>Super Heroes</h1>
+    <h1 className='text-center mt-5'>Challenge Alkemy</h1>
     {tokenId ? 
       <Home 
         tokenId={tokenId} 
@@ -22,6 +24,7 @@ function App() {
         setError={setError}
         errorDiff={errorDiff} 
         setErrorDiff={setErrorDiff}
+        setTokenId={setTokenId}
       /> : 
       <Auth 
         error={error}

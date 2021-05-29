@@ -7,7 +7,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1{
+  font-family: 'IndieFlower';
+  font-size: 100px;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: 'IndieFlower';
+  src: url(./assets/fonts/IndieFlower-Regular.ttf) format('truetype');
 }
