@@ -14,7 +14,6 @@ const Modal = ({dataHero, setModal}) => {
     <ContainerModal>
       <TitleModal>{dataHero.name}</TitleModal>
       <ContentModal>
-        {console.log(dataHero)}
         <ul>
           <li>Peso: {appearance.weight[1] || 'No se especifica'}</li>
           <li>Altura: {appearance.height[1] || 'No se especifica'}</li>
